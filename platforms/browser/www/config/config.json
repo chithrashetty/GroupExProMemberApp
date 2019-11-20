@@ -1,0 +1,23 @@
+{
+  "prod" : {
+    "baseUrl" : "https://www.groupexpro.com"
+  },
+  "ple" : {
+    "baseUrl" : "https://ple.testing.groupexpro.com"
+  },
+  "master" : {
+    "baseUrl" : "https://master.testing.groupexpro.com"
+  },
+  "staging" : {
+    "baseUrl" : "https://staging.testing.groupexpro.com"
+  },
+  "beta" : {
+    "baseUrl" : "https://beta.testing.groupexpro.com"
+  },
+  "beta-noida" : {
+    "baseUrl" : "https://beta-noida.testing.groupexpro.com"
+  },
+  "localhost" : {
+    "baseUrl" : "http://localhost:32000"
+  }
+}
