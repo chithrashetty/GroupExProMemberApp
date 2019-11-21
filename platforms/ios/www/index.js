@@ -1,7 +1,6 @@
 /*
-TODO keep filtering values when date is changed
 TODO Fix Sub/INstructor display
-TODO reservation integration
+TODO reservation fixes for in the past/not reservable yet
  */
 let allAccounts = [];
 let currentAccount = {id: 0, name: ""};
@@ -14,18 +13,24 @@ let locationFilter = 0;
 let date = new moment();
 let baseUrl = getBaseUrl();
 
+/**
+ * Gets the list of accounts to show in the drop-down.
+ *
+ * @constructor
+ */
 function GetAccountList(){
     $.post(baseUrl + "/mobile/api/getAccountList.php", function (data) {
         allAccounts = JSON.parse(data);
-        DisplayAccountDropDown();
+        loadSelectData(allAccounts, 'account', 'Select an Account',
+            changeAccountFilter, currentAccount.id);
     });
 }
 
-function DisplayAccountDropDown(){
-    loadSelectData(allAccounts, 'account', 'Select an Account',
-        changeAccountFilter, currentAccount.id);
-}
-
+/**
+ * Changes the account filter.
+ *
+ * @param e
+ */
 function changeAccountFilter(e){
     currentAccount = parseInt(e.target.value);
     instructorFilter = 0;
@@ -44,7 +49,6 @@ function changeAccountFilter(e){
  *
  * @constructor
  */
-//todo keep selected instructor/location when date changes
 function GetDataForAccount(){
     if(currentAccount.id !== 0) {
         $.post(baseUrl + "/mobile/api/getAllClasses.php?account_id="+currentAccount.id+'&date='+date.format("MM/DD/YYYY"), function (data) {
@@ -61,6 +65,15 @@ function GetDataForAccount(){
     }
 }
 
+/**
+ * Creates select element for the given parameters with the current option selected.
+ *
+ * @param dataArray
+ * @param elementName
+ * @param defaultOption
+ * @param onChangeFunction
+ * @param currentValue
+ */
 function loadSelectData(dataArray, elementName, defaultOption, onChangeFunction, currentValue="0"){
     let selectElement = document.createElement("select");
     selectElement.onchange = function(e){
@@ -100,11 +113,6 @@ function prevDate(e){
 function nextDate(e){
     date.add(1, 'days');
     GetDataForAccount();
-}
-
-//todo implement
-function changeAccount(){
-
 }
 
 /**
@@ -437,4 +445,3 @@ function getBaseUrl() {
     console.log("Environment BaseUrl: " + url);
     return url;
 }
-
