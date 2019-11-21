@@ -17,7 +17,7 @@ let baseUrl = getBaseUrl();
 //todo keep selected instructor/location when date changes
 function GetDataForAccount(){
     if(currentAccount.id !== 0) {
-        $.post(baseUrl + "/mobile/api/getAllClasses.php?account_id="+currentAccount.id, function (data) {
+        $.post(baseUrl + "/mobile/api/getAllClasses.php?account_id="+currentAccount.id+'&date='+date.format("MM/DD/YYYY"), function (data) {
             data = JSON.parse(data);
             allClasses = data.classes;
             allInstructors = data.instructors;
@@ -36,6 +36,7 @@ function loadSelectData(dataArray, elementName, defaultOption, onChangeFunction)
     selectElement.onchange = function(e){
         onChangeFunction(e)
     };
+    selectElement.id = elementName;
     let initialOption = document.createElement("option");
     initialOption.value = "0";
     initialOption.append(defaultOption);
@@ -51,31 +52,19 @@ function loadSelectData(dataArray, elementName, defaultOption, onChangeFunction)
     document.getElementById(elementName).replaceWith(selectElement);
 }
 
-function loadLocations(){
-    if(allLocations.length !== 0){
-        $('#location').innerHTML = "";
-    }
-}
-
-function loadInstructors(){
-
-}
-
 /**
  * Changes the date to be the previous day
  */
-//todo implement
-function prevDate(){
-    //todo go to previous date
+function prevDate(e){
+    date.subtract(1, 'days');
     GetDataForAccount();
 }
 
 /**
  * Changes the date to be the next day.
  */
-//todo implement
-function nextDate(){
-    //todo go to next Date
+function nextDate(e){
+    date.add(1, 'days');
     GetDataForAccount();
 }
 
