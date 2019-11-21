@@ -15,7 +15,7 @@
         <script type="text/javascript" src="index.js"></script>
 		<title>GroupEx PRO</title>
     </head>
-   <body onload="GetDataForAccount()">
+   <body onload="GetAccountList()">
 
         <div class="navbar navbar-default navbar-inverse navbar-fixed-top">
                 <div class="container" style="text-align: center; height: 65px;">
@@ -31,11 +31,16 @@
                             <i id="prevWeek" class="glyphicon glyphicon-circle-arrow-left pull-left" style="font-size: 1.5em;"></i>
                         </th>
                         <th>
+                            <select id="account">
+                                <option value="" selected disabled>Select an Account</option>
+                            </select>
+                        </th>
+                        <th id="currentDate">November 11th, 2019</th>
+                        <th>
                             <select id="location">
                                 <option value="" selected>Select a Location</option>
                             </select>
                         </th>
-                        <th id="currentDate">November 11th, 2019</th>
                         <th>
                             <select id="instructor">
                                 <option value="" selected>Select an Instructor</option>

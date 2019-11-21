@@ -1,3 +1,10 @@
+/*
+TODO keep filtering values when date is changed
+TODO Fix Sub/INstructor display
+TODO reservation integration
+ */
+let allAccounts = [];
+let currentAccount = {id: 0, name: ""};
 let allClasses = [];
 let currentClasses = [];
 let allInstructors = [];
@@ -5,9 +12,32 @@ let instructorFilter = '';
 let allLocations = [];
 let locationFilter = 0;
 let date = new moment();
-//todo don't let this be hardcoded - start with nothing
-let currentAccount = {id: 36, name: "GXP Health Clubs"};
 let baseUrl = getBaseUrl();
+
+function GetAccountList(){
+    $.post(baseUrl + "/mobile/api/getAccountList.php", function (data) {
+        allAccounts = JSON.parse(data);
+        DisplayAccountDropDown();
+    });
+}
+
+function DisplayAccountDropDown(){
+    loadSelectData(allAccounts, 'account', 'Select an Account',
+        changeAccountFilter, currentAccount.id);
+}
+
+function changeAccountFilter(e){
+    currentAccount = parseInt(e.target.value);
+    instructorFilter = 0;
+    locationFilter = 0;
+    for(var i=0; i<allAccounts.length; i++){
+        if(allAccounts[i].id == currentAccount){
+            currentAccount = allAccounts[i];
+            i = allAccounts.length;
+        }
+    }
+    GetDataForAccount();
+}
 
 /**
  * Gets all of the schedule data for the current day.
@@ -23,15 +53,15 @@ function GetDataForAccount(){
             allInstructors = data.instructors;
             allLocations = data.locations;
             loadSelectData(allLocations, 'location', 'Select a location',
-                changeLocationFilter);
+                changeLocationFilter, locationFilter);
             loadSelectData(allInstructors, 'instructor', 'Select an instructor',
-                changeInstructorFilter);
+                changeInstructorFilter, instructorFilter);
             FilterData();
         });
     }
 }
 
-function loadSelectData(dataArray, elementName, defaultOption, onChangeFunction){
+function loadSelectData(dataArray, elementName, defaultOption, onChangeFunction, currentValue="0"){
     let selectElement = document.createElement("select");
     selectElement.onchange = function(e){
         onChangeFunction(e)
@@ -40,6 +70,9 @@ function loadSelectData(dataArray, elementName, defaultOption, onChangeFunction)
     let initialOption = document.createElement("option");
     initialOption.value = "0";
     initialOption.append(defaultOption);
+    if(elementName === "account"){
+        initialOption.disabled = true;
+    }
     selectElement.append(initialOption);
     if(dataArray.length !== 0){
        for(let i = 0; i<dataArray.length; i++){
@@ -49,6 +82,7 @@ function loadSelectData(dataArray, elementName, defaultOption, onChangeFunction)
            selectElement.append(option);
        }
     }
+    selectElement.value = currentValue;
     document.getElementById(elementName).replaceWith(selectElement);
 }
 
