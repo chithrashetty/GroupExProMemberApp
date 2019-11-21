@@ -14,6 +14,9 @@ let date = new moment();
 let baseUrl = getBaseUrl();
 
 /**
+ * API FUNCTIONS
+ */
+/**
  * Gets the list of accounts to show in the drop-down.
  *
  * @constructor
@@ -24,24 +27,6 @@ function GetAccountList(){
         loadSelectData(allAccounts, 'account', 'Select an Account',
             changeAccountFilter, currentAccount.id);
     });
-}
-
-/**
- * Changes the account filter.
- *
- * @param e
- */
-function changeAccountFilter(e){
-    currentAccount = parseInt(e.target.value);
-    instructorFilter = 0;
-    locationFilter = 0;
-    for(var i=0; i<allAccounts.length; i++){
-        if(allAccounts[i].id == currentAccount){
-            currentAccount = allAccounts[i];
-            i = allAccounts.length;
-        }
-    }
-    GetDataForAccount();
 }
 
 /**
@@ -66,39 +51,8 @@ function GetDataForAccount(){
 }
 
 /**
- * Creates select element for the given parameters with the current option selected.
- *
- * @param dataArray
- * @param elementName
- * @param defaultOption
- * @param onChangeFunction
- * @param currentValue
+ * ONCHANGE FUNCTIONS
  */
-function loadSelectData(dataArray, elementName, defaultOption, onChangeFunction, currentValue="0"){
-    let selectElement = document.createElement("select");
-    selectElement.onchange = function(e){
-        onChangeFunction(e)
-    };
-    selectElement.id = elementName;
-    let initialOption = document.createElement("option");
-    initialOption.value = "0";
-    initialOption.append(defaultOption);
-    if(elementName === "account"){
-        initialOption.disabled = true;
-    }
-    selectElement.append(initialOption);
-    if(dataArray.length !== 0){
-       for(let i = 0; i<dataArray.length; i++){
-           let option = document.createElement("option");
-           option.value = dataArray[i].id;
-           option.append(dataArray[i].name);
-           selectElement.append(option);
-       }
-    }
-    selectElement.value = currentValue;
-    document.getElementById(elementName).replaceWith(selectElement);
-}
-
 /**
  * Changes the date to be the previous day
  */
@@ -135,6 +89,27 @@ function changeLocationFilter(e){
     FilterData();
 }
 
+/**
+ * Changes the account filter.
+ *
+ * @param e
+ */
+function changeAccountFilter(e){
+    currentAccount = parseInt(e.target.value);
+    instructorFilter = 0;
+    locationFilter = 0;
+    for(var i=0; i<allAccounts.length; i++){
+        if(allAccounts[i].id == currentAccount){
+            currentAccount = allAccounts[i];
+            i = allAccounts.length;
+        }
+    }
+    GetDataForAccount();
+}
+
+/**
+ * FILTER FUNCTIONS
+ */
 /**
  * Filters the data by options set by user.
  *
@@ -184,6 +159,43 @@ function FilterByInstructor(existingClasses){
         return classes;
     }
     return existingClasses;
+}
+
+/**
+ * UI FUNCTIONS
+ */
+/**
+ * Creates select element for the given parameters with the current option selected.
+ *
+ * @param dataArray
+ * @param elementName
+ * @param defaultOption
+ * @param onChangeFunction
+ * @param currentValue
+ */
+function loadSelectData(dataArray, elementName, defaultOption, onChangeFunction, currentValue="0"){
+    let selectElement = document.createElement("select");
+    selectElement.onchange = function(e){
+        onChangeFunction(e)
+    };
+    selectElement.id = elementName;
+    let initialOption = document.createElement("option");
+    initialOption.value = "0";
+    initialOption.append(defaultOption);
+    if(elementName === "account"){
+        initialOption.disabled = true;
+    }
+    selectElement.append(initialOption);
+    if(dataArray.length !== 0){
+        for(let i = 0; i<dataArray.length; i++){
+            let option = document.createElement("option");
+            option.value = dataArray[i].id;
+            option.append(dataArray[i].name);
+            selectElement.append(option);
+        }
+    }
+    selectElement.value = currentValue;
+    document.getElementById(elementName).replaceWith(selectElement);
 }
 
 /**
@@ -367,6 +379,9 @@ function GetLocation(tableElement, currentClass){
     return tableElement;
 }
 
+/**
+ * OTHER FUNCTIONS
+ */
 /**
  * Hides reservation tab, and shows schedule tab
  */
