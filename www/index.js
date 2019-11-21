@@ -6,7 +6,7 @@ let allLocations = [];
 let locationFilter = 0;
 let date = new moment();
 //todo don't let this be hardcoded - start with nothing
-let currentAccount = {id: 27, name: "GXP Health Clubs"};
+let currentAccount = {id: 36, name: "GXP Health Clubs"};
 let baseUrl = getBaseUrl();
 
 /**
@@ -17,20 +17,25 @@ let baseUrl = getBaseUrl();
 //todo keep selected instructor/location when date changes
 function GetDataForAccount(){
     if(currentAccount.id !== 0) {
-        $.post(baseUrl + "/mobile/api/getAllClasses.php", function (data) {
+        $.post(baseUrl + "/mobile/api/getAllClasses.php?account_id="+currentAccount.id, function (data) {
             data = JSON.parse(data);
             allClasses = data.classes;
             allInstructors = data.instructors;
             allLocations = data.locations;
-            loadSelectData(allLocations, 'location', 'Select a location');
-            loadSelectData(allInstructors, 'instructor', 'Select an instructor');
+            loadSelectData(allLocations, 'location', 'Select a location',
+                changeLocationFilter);
+            loadSelectData(allInstructors, 'instructor', 'Select an instructor',
+                changeInstructorFilter);
             FilterData();
         });
     }
 }
 
-function loadSelectData(dataArray, elementName, defaultOption){
+function loadSelectData(dataArray, elementName, defaultOption, onChangeFunction){
     let selectElement = document.createElement("select");
+    selectElement.onchange = function(e){
+        onChangeFunction(e)
+    };
     let initialOption = document.createElement("option");
     initialOption.value = "0";
     initialOption.append(defaultOption);
@@ -84,9 +89,8 @@ function changeAccount(){
  *
  * @param e
  */
-//todo implement
 function changeInstructorFilter(e){
-    //todo change the filter
+    instructorFilter = parseInt(e.target.value);
     FilterData();
 }
 
@@ -95,9 +99,8 @@ function changeInstructorFilter(e){
  *
  * @param e
  */
-//todo implement
 function changeLocationFilter(e){
-    //todo change the loation
+    locationFilter = parseInt(e.target.value);
     FilterData();
 }
 
@@ -123,7 +126,7 @@ function FilterByLocation(existingClasses){
     if(locationFilter !== "" && locationFilter !== 0){
         let classes = [];
         for(var i = 0; i<existingClasses.length; i++){
-            if(parseInt(instructorFilter[i].location.id) === parseInt(locationFilter)){
+            if(parseInt(existingClasses[i].location.id) === parseInt(locationFilter)){
                 classes.push(existingClasses[i]);
             }
         }
@@ -143,7 +146,7 @@ function FilterByInstructor(existingClasses){
     if(instructorFilter !== "" && instructorFilter !== 0){
         let classes = [];
         for(var i = 0; i<existingClasses.length; i++){
-            if(parseInt(instructorFilter[i].instructor.id) === parseInt(instructorFilter)){
+            if(parseInt(existingClasses[i].instructor.id) === parseInt(instructorFilter)){
                 classes.push(existingClasses[i]);
             }
         }
