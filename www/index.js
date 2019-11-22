@@ -1,4 +1,4 @@
-/*TTODO reservation fixes for in the past/not reservable yet*/
+/*TODO reservation fixes for in the past/not reservable yet*/
 let allAccounts = [];
 let currentAccount = {id: 0, name: ""};
 let allClasses = [];
@@ -22,6 +22,7 @@ function GetAccountList(){
     $.post(baseUrl + "/mobile/api/getAccountList.php", function (data) {
         allAccounts = JSON.parse(data);
         loadSelectData(allAccounts, 'account', 'Select an Account', changeAccountFilter, currentAccount.id);
+        alert('Please select an account to see listing of classes.');
     });
 }
 
