@@ -10,6 +10,30 @@ let locationFilter = 0;
 let date = new moment();
 let baseUrl = getBaseUrl();
 
+function onReservationClick(){
+    $.ajax({
+        type: 'POST',
+        url: currentUrl.replace('mobile/', '') + 'gxp/api/daxko/classes/' + uniqueID + '/' + memberID + '/reserve?XDEBUG_SESSION_START=PHPSTORM',
+        data: {'X_CLIENT_ID': accountID, 'X_CLIENT_SECRET': daxkoAPIClientSecret},
+        async: false,
+        dataType: 'json',
+        success: function (data) {
+            console.log('after1');
+            if (data.id) {
+                console.log('sucess');
+                $('.modal').modal('hide');
+
+            } else {
+                alert("Failed to reserve a spot.");
+            }
+
+        },
+        error: function (result) {
+            alert("Failed to reserve a spot.");
+        }
+    })
+}
+
 /**
  * API FUNCTIONS
  */
@@ -254,9 +278,32 @@ function getReservationIcon(newClass, currentClass){
     let tableElement = document.createElement("td");
     tableElement.className = " reservationIcon ";
     if(currentClass.canReserve){
+        /*
+        data-time="' . $vvv['start'] . ' - ' . $vvv['end'] . '"
+        data-display-date="' . date('l, F j', strtotime($k)) . '"
+        data-start="' . date('Y-m-d G:i:s', strtotime($vvv['day'] . ' ' . $vvv['start'])) . '"
+        data-end="' . date('Y-m-d G:i:s', strtotime($vvv['day'] . ' ' . $vvv['end'])) . '"
+        data-category="' . $vvv['category'] . '"
+        data-account-id="' . $vvv['account_id'] . '"
+        data-location="' . $vvv['location_id'] . '"
+        data-instructor="' . $vvv['instructor_id'] . '" class="modal-link"
+        data-target="schedule-modal">
+         */
+        let aElement = document.createElement('a');
+        aElement.setAttribute('data-name', currentClass.name);
+        aElement.setAttribute('data-time', currentClass.startTime+' - '+currentClass.endTime);
+        //todo format the 1 below
+        aElement.setAttribute('data-display-date', currentClass.date+' '+currentClass.startTime);
+        aElement.setAttribute('data-account-id', currentAccount.id);
+        aElement.setAttribute('data-can-reserve', currentClass.canReserve);
+        aElement.setAttribute('data-can-waitlist', currentClass.canAddToWaitlist);
+        aElement.setAttribute('data-unique-id', currentClass.id);
+        //aElement.setAttribute("href", baseUrl + "/gxp/api/daxko/classes/");
+        aElement.onclick(onReservationClick());
         let iElement = document.createElement('i');
         iElement.className = "glyphicon glyphicon-plus";
-        tableElement.append(iElement);
+        aElement.append(iElement);
+        tableElement.append(aElement);
     }
     newClass.append(tableElement);
     return newClass;

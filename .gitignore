@@ -1,1 +1,6 @@
 .idea
+www/config/clientSecret.json
+platforms/browser/www/config/clientSecret.json
+platforms/ios/www/config/clientSecret.json
+platforms/android/www/config/clientSecret.json
+platforms/android/app/src/main/assets/www/config/clientSecret.json
