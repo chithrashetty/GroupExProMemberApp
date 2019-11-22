@@ -1,15 +1,20 @@
 .FilterTable{
     width: 100%;
 }
+select{
+    margin: 5px;
+}
 .FilterDiv{
-    padding-top: 5% !important;
     padding-bottom: 1%;
     background-color: #337ab7;
     color: white;
 }
 .FilterTable th{
-    width: 16%;
+    /*width: 16%;*/
     text-align: center;
+}
+#currentDate{
+    width: 145px;
 }
 .FilterTable th i{
     margin: 0 15px;
@@ -44,4 +49,10 @@ td p, td b{
     /*todo update the height to match adjusting screen size*/
     overflow-y: scroll;
     height: 640px;
+}
+.navbar-fixed-top {
+    position: unset !important;
+}
+.navbar{
+    margin-bottom: 0px;
 }
