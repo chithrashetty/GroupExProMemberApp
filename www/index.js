@@ -236,7 +236,6 @@ function getClassDetails(newClass, currentClass){
     tableElement = GetAccountInfo(tableElement);
     tableElement = GetClassName(tableElement, currentClass);
     tableElement = GetInstructorName(tableElement, currentClass);
-    tableElement = GetSubInformation(tableElement, currentClass);
     tableElement = GetTimeRange(tableElement, currentClass);
     tableElement = GetLocation(tableElement, currentClass);
     newClass.append(tableElement);
@@ -319,26 +318,15 @@ function GetClassName(tableElement, currentClass){
  */
 function GetInstructorName(tableElement, currentClass){
     let instructorP = document.createElement("p");
-    instructorP.append(currentClass.instructor.name+" is teaching this class");
+    var instructorName = currentClass.instructor.name;
+    var extraInstructorText = '';
+    if(currentClass.hasSub){
+        extraInstructorText = ' for '+instructorName;
+        instructorName = currentClass.subInstructor.name;
+    }
+    instructorP.append(instructorName+" is teaching this class"+extraInstructorText);
     instructorP.fontStyle = 'italic';
     tableElement.append(instructorP);
-    return tableElement;
-}
-
-/**
- * Gets the element to display for the sub information for the class.
- *
- * @param tableElement
- * @param currentClass
- * @returns {*}
- * @constructor
- */
-function GetSubInformation(tableElement, currentClass){
-    if(currentClass.hasSub) {
-        let instructorP = document.createElement("p");
-        instructorP.append("Subed by: " + currentClass.subInstructor.name);
-        tableElement.append(instructorP);
-    }
     return tableElement;
 }
 
