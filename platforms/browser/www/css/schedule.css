@@ -1,0 +1,47 @@
+.FilterTable{
+    width: 100%;
+}
+.FilterDiv{
+    padding-top: 5% !important;
+    padding-bottom: 1%;
+    background-color: #337ab7;
+    color: white;
+}
+.FilterTable th{
+    width: 16%;
+    text-align: center;
+}
+.FilterTable th i{
+    margin: 0 15px;
+}
+.FilterTable select{
+    color: black;
+}
+button{
+    background-color: #337ab7 !important;
+    width: 50% !important;
+    height: 70px !important;
+}
+button i{
+    margin-left: 5px;
+}
+.ClassRow{
+    width: 100%;
+    /*border: solid black 2px;*/
+    /*background: lightgrey;*/
+}
+.ClassTable{
+    width: 100%;
+    overflow-y: scroll;
+}
+.col-sm-12{
+    padding: 0;
+}
+td p, td b{
+    margin: 10px;
+}
+#ajaxLoader{
+    /*todo update the height to match adjusting screen size*/
+    overflow-y: scroll;
+    height: 640px;
+}

@@ -5,50 +5,90 @@
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
         <link rel="stylesheet" href="css/bootstrap.min.css">
-		<link rel="stylesheet" href="css/bootstrap-theme.min.css" crossorigin="anonymous">		
+		<link rel="stylesheet" href="css/bootstrap-theme.min.css" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/schedule.css">
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/moment.min.js"></script>
+        <script type="text/javascript" src="js/moment-timezone-with-data.js"></script>
+        <script type="text/javascript" src="index.js"></script>
 		<title>GroupEx PRO</title>
     </head>
-   <body id="schedule">
-        <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+   <body onload="GetAccountList()">
+
+        <div class="navbar navbar-default navbar-inverse navbar-fixed-top">
                 <div class="container" style="text-align: center; height: 65px;">
                     <img style="position: relative; top:20px;" src="img/logo_mobile.png">
                     <a id="logout" class="pull-right" style="display: none; position: absolute; right:10px; bottom: 8px; color: #ccc;" href="#"><i class="glyphicon glyphicon-log-out"></i> logout</a>
                 </div>
-        </nav>
-        <div id="mainContainer" class="container-fluid">
-            <div class="row" id="mainRow">
+        </div>
+        <div id="schedule" class="tabcontent">
+            <div class="FilterDiv">
+                <table class="FilterTable">
+                    <tr>
+                        <th onclick="prevDate()">
+                            <i id="prevWeek" class="glyphicon glyphicon-circle-arrow-left pull-left" style="font-size: 1.5em;"></i>
+                        </th>
+                        <th>
+                            <select id="account">
+                                <option value="" selected disabled>Select an Account</option>
+                            </select>
+                        </th>
+                        <th id="currentDate"></th>
+                        <th>
+                            <select id="location">
+                                <option value="" selected>Select a Location</option>
+                            </select>
+                        </th>
+                        <th>
+                            <select id="instructor">
+                                <option value="" selected>Select an Instructor</option>
+                            </select>
+                        </th>
+                        <th onclick="nextDate()">
+                            <i id="nextWeek" class="glyphicon glyphicon-circle-arrow-right pull-right" style="font-size: 1.5em;"></i>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+            <div id="mainContainer" class="container-fluid">
+                <div class="row" id="mainRow">
                     <div class="col-sm-12" id="mainContent">
-                    <div id="ajaxLoader"></div>
+                        <div id="ajaxLoader"></div>
+                    </div>
                 </div>
             </div>
+        </div>
+        <div id="reservations" style="display: none" class="tabcontent">
+            testing this here now
         </div>
         <footer>
             <div class="navbar navbar-fixed-bottom" style="background: #000;">
                 <div class="container">
                     <div class="navbar-header">
                         <div class="btn-group btn-group-justified" role="group">
-                            <a role="button" id="scheduleButton" class="main-button btn btn-primary disabled">
+                            <button
+                                    class="tablinks main-button  btn btn-primary"
+                                    id="scheduleButton"
+                                    onclick="goToSchedule()"
+                            >
                                 <i style="font-size: 1.5em;" class="glyphicon glyphicon-calendar"></i>
-                                <br />
                                 Schedule
-                            </a>
-                            <a role="button" id="reservationButton" class="main-button btn btn-primary disabled">
-                                <i style="font-size: 1.5em;" class="glyphicon glyphicon-comment"></i>
-                                <br />
+                            </button>
+                            <button
+                                    class="tablinks main-button  btn btn-primary"
+                                    id="reservationButton"
+                                    onclick="goToReservations()"
+                            >
+                                <i style="font-size: 1.5em;" class="glyphicon glyphicon-time"></i>
                                 My Reservations
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </footer>
-        <script type="text/javascript" src="cordova.js"></script>
-		<script type="text/javascript" src="js/jquery.min.js"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            // document.getElementById("scheduleButton").setAttribute("href", baseUrl + "/mobile/schedule");
-            // document.getElementById("noticeButton").setAttribute("href", baseUrl + "/mobile/notices");
-        </script>
+
     </body>
 </html>
