@@ -102,5 +102,75 @@
             </div>
         </footer>
 
+    <div class="modal" id="reservation-modal" tabindex="-1" role="dialog" style="margin-top: 120px;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="topCancel" id="cancelSubmit" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Reservation</h4>
+                </div>
+                <div class="modal-body">
+                    <h5><div id="reservation-class-name"></div><div id="reservation-class-date"></div><div id="reservation-class-time"></div>
+                        <input type="hidden" id="reservation-unique-id">
+                        <input type="hidden" id="reservation-account-id">
+                    </h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="reserveSpot" class="btn btn-primary">Reserve a spot</button>
+                    <button type="button" id="addToWaitlist" class="btn btn-primary">Add to Waitlist</button>
+                    <button type="button" id="cancelSubmit" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="cancel-reservation-modal" tabindex="-1" role="dialog" style="margin-top: 120px;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" id="cancelSubmit" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Cancel Reservation</h4>
+                </div>
+                <div class="modal-body">
+                    <h5><div id="cancel-class-name"></div><div id="cancel-class-date"></div><div id="cancel-class-time"></div>
+                        <input type="hidden" id="cancel-unique-id">
+                        <input type="hidden" id="cancel-account-id">
+                    </h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="cancelSpot" class="btn btn-primary">Cancel a spot</button>
+                    <button type="button" id="removeFromWaitlist" class="btn btn-primary">Remove from Waitlist</button>
+                    <button type="button" id="cancelSubmit" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="login-modal" tabindex="-1" role="dialog" style="margin-top: 120px;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #337ab7;">
+                    <button type="button" class="topCancel" id="cancelSubmit" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title panel-heading">Member Login</h4>
+                </div>
+                <div class="modal-body">
+                    <h5><div id="loginError" type="hidden"></h5><br/>
+                    <div class="row">
+                        <label for="email" class="column1">Email</label>
+                        <input class="column2" type="text" name="email" id="email" placeholder="Email Address"><br/>
+                    </div>
+                    <div class="row">
+                        <label for="password" class="column1">Password</label>
+                        <input class="column2" type="password" name="password" id="password" placeholder="Password">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="loginSubmit" class="btn btn-default">Login</button>
+                    <button type="button" id="cancelSubmit" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     </body>
 </html>

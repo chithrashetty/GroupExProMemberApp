@@ -56,3 +56,31 @@ td p, td b{
 .navbar{
     margin-bottom: 0px;
 }
+
+.modal-footer{
+    display: flex;
+}
+
+.topCancel{
+    background-color: grey !important;
+    color: black !important;
+    width: 25px !important;
+    height: 25px !important;
+    opacity: unset;
+    float: right;
+}
+
+.column1 {
+    float: left;
+    width: 20%;
+}
+.column2 {
+    float: left;
+    width: 80%;
+}
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
