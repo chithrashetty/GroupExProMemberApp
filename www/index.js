@@ -568,7 +568,7 @@ function reserveSpot() {
         success: function (data) {
             if (data.id) {
                 $('.modal').modal('hide');
-
+                alert("Spot reserved.");
             } else {
                 alert("Failed to reserve a spot.");
             }
@@ -601,7 +601,7 @@ function addToWaitlist() {
         success: function(data) {
             if (data.id) {
                 $('.modal').modal('hide');
-
+                alert("Added to waitlist");
             } else {
                 alert("Failed to add to waitlist.");
             }
